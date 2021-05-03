@@ -1,0 +1,11 @@
+services:
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+    - 3306:3306
+    volumes:
+    - mercado_livre:/var/lib/mysql
+volumes:
+  mercado_livre:
