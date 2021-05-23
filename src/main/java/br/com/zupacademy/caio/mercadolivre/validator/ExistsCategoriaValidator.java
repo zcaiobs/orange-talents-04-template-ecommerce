@@ -20,6 +20,10 @@ public class ExistsCategoriaValidator implements ConstraintValidator<ExistsValue
 
     @Override
     public boolean isValid(Long value, ConstraintValidatorContext context) {
+        if (value == null) {
+            return false;
+        }
+
         if(value == 0) return true;
         return !(entityManager
                 .createQuery("select c from "+klass.getName()+" c where "+domainAttribute+" = :value")

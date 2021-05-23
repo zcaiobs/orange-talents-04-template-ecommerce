@@ -3,12 +3,14 @@ package br.com.zupacademy.caio.mercadolivre.categoria;
 import br.com.zupacademy.caio.mercadolivre.validator.ExistsValue;
 import br.com.zupacademy.caio.mercadolivre.validator.UniqueValue;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
 public class CategoriaRequest {
 
     @NotBlank @UniqueValue(domainClass = Categoria.class, fieldName = "nome")
     private final String nome;
+    @NotNull
     @PositiveOrZero @ExistsValue(domainClass = Categoria.class, fieldName = "id")
     private final Long principalId;
 
