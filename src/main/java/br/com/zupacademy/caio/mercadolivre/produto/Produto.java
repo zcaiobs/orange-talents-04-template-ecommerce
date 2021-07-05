@@ -1,5 +1,7 @@
 package br.com.zupacademy.caio.mercadolivre.produto;
 
+import br.com.zupacademy.caio.mercadolivre.usuario.Usuario;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
