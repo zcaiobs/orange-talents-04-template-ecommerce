@@ -1,5 +1,6 @@
 package br.com.zupacademy.caio.mercadolivre.produto;
 
+import br.com.zupacademy.caio.mercadolivre.validator.CaracteristicasValid;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.Min;
@@ -22,7 +23,7 @@ public class ProdutoRequest {
     @JsonProperty
     private Integer quantidadeDisponivel;
     @NotNull
-    @JsonProperty
+    @JsonProperty @CaracteristicasValid
     private List<CaracteristicasRequest> caracteristicas;
     @NotBlank @Length(max = 1000)
     @JsonProperty
