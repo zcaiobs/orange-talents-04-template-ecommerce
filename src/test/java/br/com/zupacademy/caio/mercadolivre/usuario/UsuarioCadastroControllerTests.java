@@ -12,6 +12,8 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -34,9 +36,16 @@ class UsuarioCadastroControllerTests {
 	@Test
 	@DisplayName("Deve cadastrar um novo usuário.")
 	void cadastro() {
+		var email = "teste1@email.com";
+		var senha = "123456";
 		TestRestTemplate client = new TestRestTemplate();
-		HttpEntity<UsuarioRequest> request = new HttpEntity<>(new UsuarioRequest("teste@email.com", "123456"));
+		HttpEntity<UsuarioRequest> request = new HttpEntity<>(new UsuarioRequest(email, senha));
 		var result = client.exchange("http://localhost:"+port+"/api/usuarios", HttpMethod.POST, request, String.class);
+
+		var usuario = usuarioRepository.findByEmail(email);
+
+		Assertions.assertTrue(usuario.isPresent());
+		Assertions.assertTrue(new BCryptPasswordEncoder().matches(senha, usuario.get().getPassword()));
 		Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
 	}
 }
